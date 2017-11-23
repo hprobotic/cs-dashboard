@@ -12,8 +12,10 @@
     "react-dom": "^16.1.1",
     "react-router": "^4.2.0",
     "react-scripts": "1.0.17",
+    "react-styleguidist": "^6.0.33",
     "semantic-ui-css": "^2.2.12",
-    "semantic-ui-react": "^0.76.0"
+    "semantic-ui-react": "^0.76.0",
+    "source-map-explorer": "^1.5.0"
   },
   "scripts": {
     "start-js": "react-scripts start",
@@ -27,9 +29,17 @@
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "flow": "flow",
-    "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom"
+    "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
+    "analyze": "source-map-explorer build/static/js/main.*"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.2.16",
+    "@storybook/addon-links": "^3.2.16",
+    "@storybook/react": "^3.2.16",
     "prettier": "^1.8.2"
   },
   "lint-staged": {
