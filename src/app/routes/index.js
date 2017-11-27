@@ -1,10 +1,15 @@
-import Home from './Home';
+import React from 'react';
+import Home from './Home/containers/HomeContainer';
+import { Switch, Route } from 'react-router-dom';
 
-export const createRoutes = store => ({
-  path: '/',
-  component: CoreLayout,
-  indexRoute: Home(store),
-  childRoutes: []
-});
+class AppRoutes extends React.Component {
+  render() {
+    return (
+      <Switch>
+        <Route exact path="/" component={Home} />
+      </Switch>
+    );
+  }
+}
 
-export default createRoutes;
+export default AppRoutes;
