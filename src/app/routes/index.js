@@ -1,13 +1,14 @@
 import React from 'react';
-import Home from './Home/containers/HomeContainer';
+import HomeContainer from './Home/containers/HomeContainer';
 import { Switch, Route } from 'react-router-dom';
 
 class AppRoutes extends React.Component {
   render() {
     return (
-      <Switch>
-        <Route exact path="/" component={Home} />
-      </Switch>
+      <Route path="/" component={HomeContainer}>
+        <Route path="foo" component={HomeContainer} />
+        <Route path="bar" component={HomeContainer} />
+      </Route>
     );
   }
 }
