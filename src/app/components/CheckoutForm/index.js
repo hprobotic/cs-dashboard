@@ -20,7 +20,7 @@ class CheckoutForm extends React.Component {
   render() {
     return (
       <Elements>
-        <CardSection fontSize={13} />
+        <CardSection amount={this.props.amount} fontSize={13} />
       </Elements>
     );
   }

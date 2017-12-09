@@ -11,6 +11,21 @@ import {
 } from 'semantic-ui-react';
 import { Elements } from 'react-stripe-elements';
 import CheckoutForm from '../CheckoutForm';
+import refresh from './refresh.svg';
+import success from './success.svg';
+
+const PaySucess = props => (
+  <div>
+    <div className="icon">
+      <img src={success} />
+    </div>
+    <h3>Payment successful</h3>
+    <p>Thanks you for donate</p>
+    <a class="reset" href="#">
+      <img src={refresh} />
+    </a>
+  </div>
+);
 
 class Checkout extends React.Component {
   state = {
@@ -20,13 +35,14 @@ class Checkout extends React.Component {
     }
   };
 
-  handleChange = (e, { name, value }) =>
+  handleChange = (e, { name, value }) => {
     this.setState({
       formValue: {
         ...this.state.formValue,
         [name]: value
       }
     });
+  };
 
   handleSubmit = () => {
     console.log(this.state.formValue);
@@ -104,7 +120,8 @@ class Checkout extends React.Component {
           <Form.Button content="Save" />
         </Form>
         <h3>Payment info: </h3>
-        <CheckoutForm />
+        <CheckoutForm amount={amount} />
+        {true && <PaySucess amount={1000} transactionId={'xxx'} />}
       </div>
     );
   }

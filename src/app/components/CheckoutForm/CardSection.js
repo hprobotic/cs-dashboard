@@ -42,23 +42,36 @@ const createOptions = fontSize => {
 };
 
 class CardSection extends React.Component {
-  state = {
-    error: undefined
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: undefined
+    };
+  }
 
-  stripeTokenHandler = token => {
+  stripeTokenHandler = (token, amount) => {
     console.log('Token: ', token);
-    this.props.stripe.charges.create(
-      {
-        amount: 1000,
-        currency: 'usd',
-        description: 'Example charge',
-        source: token
-      },
-      function(result) {
-        console.log(result);
+    const wsUrl =
+      'https://wt-9bb02c61fe43f0ab0454b4856217d79d-0.run.webtask.io/cs-stripe';
+    fetch(wsUrl, {
+      method: 'POST',
+      body: JSON.stringify({
+        token: token.id,
+        amount: amount,
+        description: 'Education for children'
+      }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
       }
-    );
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
   handleSubmit = ev => {
@@ -71,18 +84,20 @@ class CardSection extends React.Component {
           }
         });
       } else {
-        this.setState({ error: undefined }, () =>
-          this.stripeTokenHandler(result.token)
-        );
+        this.setState({ error: undefined }, () => {
+          console.log('Amount: ', this.props.amount);
+          this.stripeTokenHandler(result.token, this.props.amount);
+        });
       }
     });
   };
   render() {
     const { error } = this.state;
+    const { amount } = this.props;
     return (
       <form onSubmit={this.handleSubmit} className="payment-form">
         <div className="form-row">
-          <label>Credit or debit card</label>
+          <label>Credit or debit card: {amount}</label>
           <CardElement
             onBlur={handleBlur}
             onChange={handleChange}
