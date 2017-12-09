@@ -18,20 +18,20 @@ class CoreLayout extends React.Component {
         <div styleName="item-1">{this.props.children}</div>
         <div styleName="item-2">
           <div styleName="item-3">
-            <Card.Group>
-              <Card fluid>
-                <Card.Content>
-                  <Image
-                    floated="right"
-                    size="mini"
-                    src="https://randomuser.me/api/portraits/med/men/83.jpg"
-                  />
-                  <Card.Header>John</Card.Header>
-                  <Card.Meta>Developer</Card.Meta>
-                </Card.Content>
-              </Card>
-            </Card.Group>
-            <Menu pointing secondary fluid vertical>
+            <div className="hi">
+              <a styleName="logo" href="/">
+                <span styleName="logoIcon" />
+                <div styleName="logoText">
+                  <span styleName="logoTitle">
+                    <strong>TIIP.</strong>ME
+                  </span>
+                  <span styleName="logoDescription">
+                    <span>Let's </span>get you paid{' '}
+                  </span>
+                </div>
+              </a>
+            </div>
+            <Menu pointing secondary fluid inverted vertical>
               <Menu.Item
                 name="home"
                 active={activeItem === 'home'}

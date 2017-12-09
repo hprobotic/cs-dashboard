@@ -97,7 +97,7 @@ class CardSection extends React.Component {
     return (
       <form onSubmit={this.handleSubmit} className="payment-form">
         <div className="form-row">
-          <label>Credit or debit card: {amount}</label>
+          <h4>Credit or debit card: {amount} $</h4>
           <CardElement
             onBlur={handleBlur}
             onChange={handleChange}

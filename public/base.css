@@ -35,7 +35,7 @@ text-decoration: none;
 transition: all 150ms ease;
 float: left;
 margin-left: 12px;
-margin-top: 28px;
+margin-top: 33px;
 }
 
 button:hover {
@@ -81,8 +81,8 @@ transition: box-shadow 150ms ease;}
 }
 .payment-form {
   background-color: #efefef;
-  padding: 20px;
-  border-radius: 5px;
+  padding: 40px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: 'flex-start';
@@ -98,7 +98,6 @@ margin-bottom: 8px;
 .ElementsApp .InputElement {
     color: #32325d;
     line-height: 18px;
-    font-family: "Open Sans", Helvetica, sans-serif;
     font-size: 16px;
     height: 18px;
     -webkit-font-smoothing: antialiased;
@@ -112,4 +111,21 @@ margin-bottom: 8px;
 }
 .StripeElement--invalid {
     border-color: #fa755a;
+}
+
+.ui.secondary.inverted.pointing.menu {
+  border-color: transparent
+}
+
+.ui.secondary.pointing.menu .item {
+  font-size: 28px;
+  padding-left: 0px;
+}
+.ui.secondary.vertical.pointing.menu .active {
+  border-right-width: 10px;
+}
+
+.ui.form .field > label {
+  font-size: 16px;
+  font-weight: 400;
 }

@@ -11,21 +11,8 @@ import {
 } from 'semantic-ui-react';
 import { Elements } from 'react-stripe-elements';
 import CheckoutForm from '../CheckoutForm';
-import refresh from './refresh.svg';
-import success from './success.svg';
-
-const PaySucess = props => (
-  <div>
-    <div className="icon">
-      <img src={success} />
-    </div>
-    <h3>Payment successful</h3>
-    <p>Thanks you for donate</p>
-    <a class="reset" href="#">
-      <img src={refresh} />
-    </a>
-  </div>
-);
+import PaySuccess from '../PaySuccess/PaySuccess';
+import UserInfo from '../UserInfo/UserInfo';
 
 class Checkout extends React.Component {
   state = {
@@ -60,6 +47,7 @@ class Checkout extends React.Component {
     } = this.state.formValue;
     return (
       <div>
+        {true && <UserInfo user={this.state.formValue} />}
         <h2>Education for Children</h2>
         <h3>Donator Info: </h3>
         <Form onSubmit={this.handleSubmit} loading={isFormLoading}>
@@ -104,11 +92,6 @@ class Checkout extends React.Component {
             required
             readOnly={isFormValidate}
           />
-          <Message
-            positive
-            header="Send your loved one a free card during checkout."
-            content="Donate more than 1000$ or get out :)"
-          />
           <Form.Field
             control={Checkbox}
             name="term"
@@ -121,7 +104,7 @@ class Checkout extends React.Component {
         </Form>
         <h3>Payment info: </h3>
         <CheckoutForm amount={amount} />
-        {true && <PaySucess amount={1000} transactionId={'xxx'} />}
+        {true && <PaySuccess amount={1000} transactionId={'xxx'} />}
       </div>
     );
   }
