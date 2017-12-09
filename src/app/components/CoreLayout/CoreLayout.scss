@@ -1,0 +1,37 @@
+/* Repeat 3 rows named "row", each between 120px and 1fr tall */
+/* Repeat 4 columns named "col", each 1fr wide */
+.grid-container {
+    display: grid;
+    grid-template: repeat(3, [row] minmax(120px, 1fr)) / repeat(4, [col] 1fr);
+    grid-gap: 20px;
+}
+
+.item-1 {
+    grid-column: col 1 / span 4;
+    grid-row: row 1;
+}
+
+.item-2 {
+    grid-column: col 4;
+    grid-row: row 1 / span 3;
+}
+
+.item-3 {
+    grid-column: col 1;
+    grid-row: row 2;
+}
+
+.item-4 {
+    grid-column: col 2 / span 2;
+    grid-row: row 2;
+}
+
+.item-5 {
+    grid-column: col 1;
+    grid-row: row 3;
+}
+
+.item-6 {
+    grid-column: col 2 / span 2;
+    grid-row: row 3;
+}
