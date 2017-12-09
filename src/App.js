@@ -6,11 +6,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
+import { StripeProvider } from 'react-stripe-elements';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 
 import * as reducers from './app/reducers';
-import { CoreLayout, Checkout, Charges } from './app/components';
+import { CoreLayout, Checkout, Charges, Home } from './app/components';
 
 const reducer = combineReducers({
   ...reducers,
@@ -31,13 +32,15 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <div>
-          <Router history={history}>
-            <Route path="/" component={CoreLayout}>
-              <IndexRoute component={Checkout} />
-              <Route path="/charges" component={Charges} />
-            </Route>
-          </Router>
-          <DevTools />
+          <StripeProvider apiKey="pk_test_fenEJbD8JQKMfHjzzpdZvpc1">
+            <Router history={history}>
+              <Route path="/" component={CoreLayout}>
+                <IndexRoute component={Home} />
+                <Route path="/charges" component={Charges} />
+                <Route path="/checkout" component={Checkout} />
+              </Route>
+            </Router>
+          </StripeProvider>
         </div>
       </Provider>
     );

@@ -1,37 +1,29 @@
-/* Repeat 3 rows named "row", each between 120px and 1fr tall */
-/* Repeat 4 columns named "col", each 1fr wide */
 .grid-container {
+    padding-top: 100px;
+    width: 1280px;
+    margin: 0 auto;
     display: grid;
-    grid-template: repeat(3, [row] minmax(120px, 1fr)) / repeat(4, [col] 1fr);
+    grid-template: repeat(4, 1fr) / repeat(4  , 1fr);
     grid-gap: 20px;
+    grid-template-areas:
+        'sidebar content content content'
+        'sidebar content content content'
+        'footer footer footer footer';
 }
 
 .item-1 {
-    grid-column: col 1 / span 4;
-    grid-row: row 1;
+    grid-area: content;
 }
 
 .item-2 {
-    grid-column: col 4;
-    grid-row: row 1 / span 3;
+    grid-area: sidebar;
 }
 
 .item-3 {
-    grid-column: col 1;
-    grid-row: row 2;
+    grid-area: header;
 }
 
 .item-4 {
-    grid-column: col 2 / span 2;
-    grid-row: row 2;
-}
-
-.item-5 {
-    grid-column: col 1;
-    grid-row: row 3;
-}
-
-.item-6 {
-    grid-column: col 2 / span 2;
-    grid-row: row 3;
+    grid-area: footer;
+    background-color: black;
 }
