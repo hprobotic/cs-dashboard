@@ -1,9 +1,40 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+Project 3 - *Stripe Central*
 
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+**Name of your app** is an app using the [Stripe API](https://stripe.com/docs/api).
 
-[![Build Status](https://travis-ci.org/hprobotic/coderschool-react-template.svg?branch=master)](https://travis-ci.org/hprobotic/coderschool-react-template)
-[![GitHub license](https://img.shields.io/github/license/hprobotic/coderschool-react-template.svg)](https://github.com/hprobotic/coderschool-react-template)
-[![bitHound](https://img.shields.io/bithound/dependencies/github/rexxars/sse-channel.svg)]()
-[![CodeFactor](https://www.codefactor.io/repository/github/hprobotic/coderschool-react-template/badge)](https://www.codefactor.io/repository/github/hprobotic/coderschool-react-template)
+Time spent: **8** hours spent in total
+
+## Walkthrough
+
+[Online Demo](https://hardcore-kalam-ace609.netlify.com/)
+
+![Demo](https://i.imgur.com/S86yhCa.png)
+
+
+
+## User Stories
+
+The following **required** functionality is completed:
+
+- [x] User has two tabs, one for Checkout, and one for Charges.
+- [x] User can see the currently active tab.
+- [x] User can create a charge for a desired amount on the Checkout tab.
+- [x] User sees an error message when there is a card processing error.
+- [x] User can see past charges on the Charges tab.
+
+The following **optional** features are implemented:
+
+- [ ] User can specify currency as part of the charges.
+- [ ] Clicking on a table header should sort the entries by that element.
+- [ ] User can refund charges from the charges tab. 
+- [ ] Graph of charges over time.
+- [ ] Third tab for disputes. 
+- [ ] 
+
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='https://i.imgur.com/nZS4rll.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
