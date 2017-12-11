@@ -1,26 +1,7 @@
 import React from 'react';
-import { Input, Label } from 'semantic-ui-react';
-import {
-  injectStripe,
-  CardElement,
-  PostalCodeElement
-} from 'react-stripe-elements';
-
-const handleBlur = () => {
-  console.log('[blur]');
-};
-const handleChange = change => {
-  console.log('[change]', change);
-};
-const handleClick = () => {
-  console.log('[click]');
-};
-const handleFocus = () => {
-  console.log('[focus]');
-};
-const handleReady = () => {
-  console.log('[ready]');
-};
+import { injectStripe, CardElement } from 'react-stripe-elements';
+import { Loader } from 'semantic-ui-react';
+import PayResult from '../PayResult/PayResult';
 
 const createOptions = fontSize => {
   return {
@@ -29,7 +10,6 @@ const createOptions = fontSize => {
         fontSize,
         color: '#424770',
         letterSpacing: '0.025em',
-        fontFamily: 'Source Code Pro, Menlo, monospace',
         '::placeholder': {
           color: '#aab7c4'
         }
@@ -45,20 +25,27 @@ class CardSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: undefined
+      error: undefined,
+      paying: true,
+      loading: false,
+      currentCheckoutStatus: 'Starting...',
+      status: {
+        paySuccess: false,
+        message: ''
+      }
     };
   }
 
   stripeTokenHandler = (token, amount) => {
-    console.log('Token: ', token);
     const wsUrl =
-      'https://wt-9bb02c61fe43f0ab0454b4856217d79d-0.run.webtask.io/cs-stripe';
+      'https://wt-9bb02c61fe43f0ab0454b4856217d79d-0.run.webtask.io/stripe/charges';
     fetch(wsUrl, {
       method: 'POST',
       body: JSON.stringify({
-        token: token.id,
+        stripeToken: token.id,
         amount: amount,
-        description: 'Education for children'
+        description: 'Education for children',
+        currency: 'usd'
       }),
       headers: {
         Accept: 'application/json',
@@ -68,51 +55,94 @@ class CardSection extends React.Component {
       .then(response => response.json())
       .then(responseJson => {
         console.log(responseJson);
+        this.setState({
+          paying: false,
+          status: {
+            paySuccess: true,
+            message: 'Hello'
+          },
+          currentCheckoutStatus: 'Charged, thanks you...',
+          loading: false
+        });
       })
       .catch(error => {
+        this.setState({
+          paying: false,
+          status: {
+            paySuccess: false,
+            message: JSON.stringify(error)
+          },
+          currentCheckoutStatus: 'Charged failed, please check again...',
+          loading: false
+        });
         console.error(error);
       });
   };
 
   handleSubmit = ev => {
     ev.preventDefault();
+    this.setState({ loading: true });
     this.props.stripe.createToken().then(result => {
       if (result.error) {
         this.setState({
           error: {
             message: result.error.message
-          }
+          },
+          currentCheckoutStatus: 'Error...'
         });
       } else {
         this.setState({ error: undefined }, () => {
-          console.log('Amount: ', this.props.amount);
-          this.stripeTokenHandler(result.token, this.props.amount);
+          this.setState(
+            {
+              currentCheckoutStatus: 'Generated token, marking a charge...'
+            },
+            () => {
+              this.stripeTokenHandler(result.token, this.props.amount);
+            }
+          );
         });
       }
     });
   };
+
+  refreshCheckout = () => {
+    this.setState({
+      paying: true
+    });
+  };
+
   render() {
-    const { error } = this.state;
+    const {
+      error,
+      paying,
+      status,
+      loading,
+      currentCheckoutStatus
+    } = this.state;
     const { amount } = this.props;
     return (
-      <form onSubmit={this.handleSubmit} className="payment-form">
-        <div className="form-row">
-          <h4>Credit or debit card: {amount} $</h4>
-          <CardElement
-            onBlur={handleBlur}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onReady={handleReady}
-            {...createOptions(this.props.fontSize)}
-          />
-          {error && (
-            <div className="card-errors" role="alert">
-              {error.message}
+      <div>
+        {paying && (
+          <form onSubmit={this.handleSubmit} className="payment-form">
+            <div className="form-row">
+              <h4>Credit or debit card: {amount} $</h4>
+              <CardElement {...createOptions(this.props.fontSize)} />
+              {error && (
+                <div className="card-errors" role="alert">
+                  {error.message}
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <button>Submit Payment</button>
-      </form>
+            <button>Submit Payment</button>
+          </form>
+        )}
+        {loading && (
+          <Loader active inline="centered">
+            {currentCheckoutStatus}
+          </Loader>
+        )}
+        {!paying && <PayResult info={status} refresh={this.refreshCheckout} />}
+      </div>
     );
   }
 }

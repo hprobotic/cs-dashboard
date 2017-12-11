@@ -6,6 +6,16 @@ import styles from './CoreLayout.css';
 
 class CoreLayout extends React.Component {
   state = { activeItem: 'home' };
+
+  componentDidMount() {
+    const currentTab = browserHistory
+      .getCurrentLocation()
+      .pathname.split('/')[1];
+    this.setState({
+      activeItem: currentTab || 'home'
+    });
+  }
+
   handleItemClick = (e, { name }) => {
     browserHistory.push(`/${name}`);
     this.setState({ activeItem: name });

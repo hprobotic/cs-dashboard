@@ -18,10 +18,18 @@ class CheckoutForm extends React.Component {
   };
 
   render() {
+    const { title } = this.props;
     return (
-      <Elements>
-        <CardSection amount={this.props.amount} fontSize={16} />
-      </Elements>
+      <div>
+        <h3>{title}:</h3>
+        <Elements>
+          <CardSection
+            amount={this.props.userInfo.amount}
+            fontSize={16}
+            userInfo={this.props.userInfo}
+          />
+        </Elements>
+      </div>
     );
   }
 }
